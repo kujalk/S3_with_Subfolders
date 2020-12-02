@@ -1,5 +1,5 @@
 /*
-Developer - K.Janarthana
+Developer - K.Janarthanan
 Date - 1/12/2020
 Purpose - To create S3 buckets with sub folders
 */
@@ -15,15 +15,15 @@ locals {
   ])
 }
 
-
+#Creating S3 Bucket
 resource "aws_s3_bucket" "bucket" {
   for_each = var.BucketStructure
   bucket = each.key
   
   force_destroy = true
-
 }
 
+#Applying S3 Bucket policies for SSL enabling and Server Side Encryption
 resource "aws_s3_bucket_policy" "bucketpolicy" {
   depends_on = [aws_s3_bucket.bucket]
   for_each = var.BucketStructure
@@ -78,11 +78,13 @@ resource "aws_s3_bucket_policy" "bucketpolicy" {
 POLICY
 }
 
+#To sleep for 30s before creating Sub Folders in S3
 resource "time_sleep" "wait_30_seconds" {
   depends_on = [aws_s3_bucket_policy.bucketpolicy]
   create_duration = "30s"
 }
 
+#Creating the specified Sub Folders in S3
 resource "aws_s3_bucket_object" "folder_structure" {
     depends_on = [time_sleep.wait_30_seconds]
     for_each = {
