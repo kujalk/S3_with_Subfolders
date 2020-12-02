@@ -1,7 +1,7 @@
 variable BucketStructure{
     default ={
-        "jana-hotel006"=["sub1/sub2/","temp/"]
-        "jana-hotel007"=["vehicle/"]
-        "jana-hotel009"=[]
+        "jana-temp006"=["sub1/sub2/","temp/"]
+        "jana-temp007"=["vehicle/"]
+        "jana-temp009"=[]
     }
 }
